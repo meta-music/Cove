@@ -13,10 +13,10 @@
 	export default {
 		data() {
 			return {
-				color : 'red',
-				xPct : '500px',
-				yPct : '500px',
-				opacity : 50
+				color : '',
+				xPct : '',
+				yPct : '',
+				opacity : 0.9
 			}
 		},
 		methods: {
