@@ -21,7 +21,16 @@
 		{
 			"path": "pages/login/index"
 		}
-	],
+        ,{
+            "path" : "components/blossom/blossom",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "心乐星记",

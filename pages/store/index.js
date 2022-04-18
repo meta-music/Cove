@@ -15,10 +15,10 @@ let state={
 		"min-height":"800rpx",
 	},
 	mood:[
-		['Happy','Sad','Annoyed','Strong','Anxous','Content','Excited'],
-		['Scared','Peaceful','Loved','Vulnerable','Regret','Overwhelmed','Hight'],
-		['Upset','Mature','Weak','Alone','Clouded','Lost','Grateful'],
-		['Low','Confused','Guilty','Depressed','Angry','Lonely']
+		['开心','沮丧','烦恼','强烈','焦虑','满意','兴奋'],
+		['害怕','平静','被爱','受伤','后悔','极度','嗨'],
+		['难过','成熟','脆弱','孤单','阴郁','失落','感激'],
+		['低沉','困惑','罪恶','抑郁','愤怒','孤独']
 		],
 	//当前新增列表 project
 	project:{

@@ -30,7 +30,7 @@
 		<view class="">
 			<view class="u-m-10 u-p-10 u-radius-5 text-center u-bg-maka3 u-font-gray2"
 			 @click="handleClickDelete">
-				DELETE THIS COVE
+				删除此星记
 			</view>
 		</view>
 		<view class="share-view">

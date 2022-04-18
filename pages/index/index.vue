@@ -28,12 +28,12 @@
 			<view class="u-m-10 u-p-10 u-radius-5 text-center u-bg-maka3 u-font-gray2"
 			 style="width: 100%;"
 			 @click="handleClickDelete">
-				Delete All
+				删除全部
 			</view>
 			<view class="u-m-10 u-p-10 u-radius-5 text-center u-bg-maka3 u-font-gray2" 
 			 style="width: 100%;"
 			 @click="handleClickAdd">
-				Add New
+				添加星记
 			</view>
 		</view>
 	</view>

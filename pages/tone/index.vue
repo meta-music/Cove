@@ -1,6 +1,6 @@
 <template>
 	<view class="u-bg-malandy-g3" :style="defaultHeight">
-		<view class="u-font-white text-center">TAP WINDOWS ADD NEW GAUMT</view>
+		<view class="circle"></view>
 		<view class="" 
 			:style="'height:'+getWindowsHeight*0.8 +'px;'"
 			@click="handleChickSet">
@@ -29,6 +29,21 @@
 
 <script>
 	import {mapActions,mapGetters,mapState} from 'vuex';
+	import propTypes from 'prop-types';
+	// import { CSSTransition, TransitionGroup } from 'react-transition-group';
+	import uuid from 'uuid';
+	import NoSleep from 'nosleep.js';
+	import { merge } from 'rxjs';
+	import Circle from '@/components/blossom/blossom.vue';
+	import generation$ from '@/lib/core/input/generation.source';
+	import makeInputSource from '@/lib/core/input/make-input-source';
+	import feedbackDelay from '@/lib/core/operators/feedback-delay.operator';
+	import colored from '@/lib/core/operators/colored.operator';
+	import startAudioContext from '@/lib/audio/start-audio-context';
+	
+	const MIN_DELAY_MS = 7000;
+	const MAX_EXTRA_DELAY_MS = 5000;
+	
 	export default{
 		data(){
 			return{
@@ -60,6 +75,11 @@
 			...mapActions([
 				'synthGamut','initPlayer','runSynthGamut','saveSynthGamut','playerStop','clearIntervals','runIntervals'
 			]),
+			
+			
+			
+			
+			
 			handleChickSet(e){
 				//播放音阶 
 				this.synthGamut();
@@ -99,6 +119,7 @@
 </script>
 
 <style scoped lang="scss">
+	@import "./canvas.styles.scss";
 	.view-synth{
 		height: 40px;
 		width: 40px;
