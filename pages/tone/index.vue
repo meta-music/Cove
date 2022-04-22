@@ -1,9 +1,9 @@
 <template>
 	<view class="u-bg-malandy-g3" :style="defaultHeight">
-		<view class="circle"></view>
 		<view class="" 
 			:style="'height:'+getWindowsHeight*0.8 +'px;'"
-			@click="handleChickSet">
+			@click="handleChickSet"
+			ref = "container">
 			<view
 			v-for="(item,index) of synthList"
 			:key='item.id' 
@@ -29,21 +29,10 @@
 
 <script>
 	import {mapActions,mapGetters,mapState} from 'vuex';
-	import propTypes from 'prop-types';
-	// import { CSSTransition, TransitionGroup } from 'react-transition-group';
-	import uuid from 'uuid';
-	import NoSleep from 'nosleep.js';
-	import { merge } from 'rxjs';
-	import Circle from '@/components/blossom/blossom.vue';
-	import generation$ from '@/lib/core/input/generation.source';
-	import makeInputSource from '@/lib/core/input/make-input-source';
-	import feedbackDelay from '@/lib/core/operators/feedback-delay.operator';
-	import colored from '@/lib/core/operators/colored.operator';
-	import startAudioContext from '@/lib/audio/start-audio-context';
+	import ref from 'vue';
+	import normalToPct from '@/lib/core/normal-to-pct.js';
 	
-	const MIN_DELAY_MS = 7000;
-	const MAX_EXTRA_DELAY_MS = 5000;
-	
+	const container = new ref(null)
 	export default{
 		data(){
 			return{
@@ -75,14 +64,11 @@
 			...mapActions([
 				'synthGamut','initPlayer','runSynthGamut','saveSynthGamut','playerStop','clearIntervals','runIntervals'
 			]),
-			
-			
-			
-			
-			
 			handleChickSet(e){
-				//播放音阶 
-				this.synthGamut();
+				//播放音阶
+				var clientHeight = this.$refs.container.$el.clientHeight;
+				var yPct = normalToPct(e.detail.y/clientHeight);
+				this.synthGamut(yPct);
 				if(this.synthList.length<8){
 					//新增
 					this.synthList.push({
@@ -119,7 +105,6 @@
 </script>
 
 <style scoped lang="scss">
-	@import "./canvas.styles.scss";
 	.view-synth{
 		height: 40px;
 		width: 40px;

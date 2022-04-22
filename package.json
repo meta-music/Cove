@@ -10,6 +10,7 @@
     "sass": "^1.50.0",
     "shuffle-array": "^1.0.1",
     "startaudiocontext": "^1.2.1",
+    "tonal": "^2.2.2",
     "tone": "^14.7.77"
   }
 }

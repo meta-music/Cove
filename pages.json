@@ -30,6 +30,9 @@
             }
             
         }
+        ,{
+            "path" : "pages/blossom/index"            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

@@ -2,6 +2,11 @@ import Vue from "vue"
 import Vuex from "vuex"
 import * as Tone from "tone";
 
+import { Scale } from 'tonal';
+import getInstrument from './get-instrument';
+import { Sampler, Filter, Master, Compressor } from 'tone';
+import samples from '../../static/samples.json';
+
 //组合
 const synth = new Tone.Synth().toDestination();
 
@@ -172,9 +177,58 @@ let actions={
 		state.player.playbackRate = 0.25;
 	},
 	//插入音阶
-	synthGamut({commit,state}){
+	synthGamut({commit,state}, yPct){
 		const now = Tone.now();
-		state.synth.triggerAttackRelease("C4", "8n", now);
+		
+		const ONE_HUNDRED = 100;
+		const NOTE_TIME_OFFSET_S = 0.01;
+		const VELOCITY = 1;
+		
+		const tonicPc = 'D';
+		// eslint-disable-next-line no-magic-numbers
+		const octaves = [2, 3, 4, 5, 6];
+		const notes = octaves.reduce(
+		  (allNotes, octave) =>
+		    allNotes.concat(Scale.notes(`${tonicPc}${octave}`, 'major')),
+		  []
+		);
+		
+		const getNoteAtHeight = yPct =>
+		  notes[
+		    Math.min(
+		      notes.length - 1,
+		      Math.floor(((ONE_HUNDRED - yPct) / ONE_HUNDRED) * notes.length)
+		    )
+		  ];
+		const note = getNoteAtHeight(yPct);
+		const sampleFormat = 'mp3';
+		
+		const lowpass = new Filter({
+		  frequency: 2500,
+		  type: 'lowpass',
+		});
+		const lowshelf = new Filter({
+		  freqequency: 1500,
+		  type: 'lowshelf',
+		  rolloff: -96,
+		});
+		const compressor = new Compressor();
+		
+		const getInstrument = () =>
+		  new Promise(resolve => {
+		    const instrument = new Sampler(
+		      samples[`vsco2-piano-reverb-${sampleFormat}`],
+		      {
+		        onload: () => resolve(instrument),
+		      }
+		    ).chain(lowpass, lowshelf, compressor, Master);
+		  });
+		
+		
+		
+		getInstrument.triggerAttack(note, now + NOTE_TIME_OFFSET_S, VELOCITY);
+		console.log("test");
+		//state.synth.triggerAttackRelease(note, now);
 	},
 	runSynthGamut({state}){
 		if(state.project.synth!=[]){
