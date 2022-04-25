@@ -1,6 +1,6 @@
 <template>
 	<view class="u-bg-malandy-g3" :style="defaultHeight">
-		<view class="" 
+		<view id = "particles" class=""
 			:style="'height:'+getWindowsHeight*0.8 +'px;'"
 			@click="handleChickSet"
 			ref = "container">
@@ -31,6 +31,7 @@
 	import {mapActions,mapGetters,mapState} from 'vuex';
 	import ref from 'vue';
 	import normalToPct from '@/lib/core/normal-to-pct.js';
+	import particles from 'particles.js';
 	
 	import VueRx from 'vue-rx'
 	
@@ -56,6 +57,7 @@
 			}
 		},
 		mounted() {
+			particlesJS.load('particles','./static/particles_nasa.json');
 			this.initPlayer();
 			this.runIntervals(()=>{
 				//Reset delay count
@@ -136,5 +138,14 @@
 		background-position: center center;
 		background-repeat: no-repeat;
 		background-size: contain;
+	}
+	#particles{
+	      position: absolute;
+	      width: 100%;
+	      height: 100%;
+	      background-color: #000022;
+	      background-repeat: no-repeat;
+	      background-size: cover;
+	      background-position: center center;
 	}
 </style>

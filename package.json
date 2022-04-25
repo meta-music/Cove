@@ -5,6 +5,7 @@
     "material-colors": "^1.2.6",
     "node-sass": "^7.0.1",
     "nosleep.js": "^0.12.0",
+    "particles.js": "^2.0.0",
     "prop-types": "^15.8.1",
     "rxjs": "^7.5.5",
     "sass": "^1.50.0",
