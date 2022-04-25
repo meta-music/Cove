@@ -5,12 +5,12 @@
 			@click="handleChickSet"
 			ref = "container">
 			<view
-			v-for="(item,index) of synthList"
+			v-for="(item) of synthList"
 			:key='item.id' 
 			class="view-synth"
 			:class="animation"
 			:style="[{
-				animationDelay: (index + 1)*0.8 + 's',
+				animationDelay: item.up + 's',
 				top:item.top,
 				left:item.left,
 				}]"
@@ -32,10 +32,17 @@
 	import ref from 'vue';
 	import normalToPct from '@/lib/core/normal-to-pct.js';
 	
+	import VueRx from 'vue-rx'
+	
+	//For interval calculation 
+	var previousClickTime;
+	var everClick = false;
+	
 	const container = new ref(null)
 	export default{
 		data(){
 			return{
+				fristClick: true,
 				synthList:[],
 				animation: 'animation-fade',
 			}
@@ -51,6 +58,11 @@
 		mounted() {
 			this.initPlayer();
 			this.runIntervals(()=>{
+				//Reset delay count
+				if (everClick) {
+					previousClickTime = Date.now();
+				}
+				
 				//console.log('清空动画');
 				this.animation ="";
 				setTimeout(()=>{
@@ -58,34 +70,44 @@
 					this.animation='animation-fade';
 					this.runSynthGamut();
 				},100);
-			})
+			});
 		},
 		methods:{
 			...mapActions([
-				'synthGamut','initPlayer','runSynthGamut','saveSynthGamut','playerStop','clearIntervals','runIntervals'
+				'synthGamut','initPlayer','runSynthGamut','saveSynthGamut','playerStop','clearIntervals','runIntervals','startAudioContext'
 			]),
 			handleChickSet(e){
 				//播放音阶
 				var clientHeight = this.$refs.container.$el.clientHeight;
 				var yPct = normalToPct(e.detail.y/clientHeight);
 				this.synthGamut(yPct);
-				if(this.synthList.length<8){
-					//新增
-					this.synthList.push({
-						left: (e.detail.x-20) + 'px',
-						top: (e.detail.y-20) +'px',
-						y: e.detail.y-20
-					});
-					//排序
-					this.synthList.sort((a,b)=>{
-						return a.y - b.y
-					});
-					//新增播放间隔 编号是播放音频的增量 也可以自定义up值
-					for(var i=0;i<this.synthList.length;i++){
-						this.synthList[i].up = i*0.7;
-					}
-					this.saveSynthGamut(this.synthList);
+				
+				//新增
+				
+				//Calculate intervals
+				
+				let interval = 0;
+				if (everClick) {
+					interval = (Date.now() - previousClickTime)/1000;
 				}
+				this.synthList.push({
+					left: (e.detail.x-20) + 'px',
+					top: (e.detail.y-20) +'px',
+					y: yPct,
+					up: interval
+				});
+				// //排序
+				// this.synthList.sort((a,b)=>{
+				// 	return a.y - b.y
+				// });
+				//新增播放间隔
+				// for(var i=0;i<this.synthList.length;i++){
+				// 	this.synthList[i].up = i*0.7;
+				// }
+				this.saveSynthGamut(this.synthList);
+
+				previousClickTime = Date.now();
+				everClick = true;
 			},
 			change(){
 				
@@ -109,7 +131,10 @@
 		height: 40px;
 		width: 40px;
 		border-radius: 20px;
-		background-color: skyblue;
 		position: absolute;
+		background-image: url('../../static/images/star.png');
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: contain;
 	}
 </style>

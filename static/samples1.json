@@ -1,0 +1,27 @@
+{
+  "vsco2-piano-reverb-mp3": {
+    "A0": "../../static/samples/vsco2-piano-reverb-mp3/a0.mp3",
+    "C#1": "../../static/samples/vsco2-piano-reverb-mp3/csharp1.mp3",
+    "F1": "../../static/samples/vsco2-piano-reverb-mp3/f1.mp3",
+    "A1": "../../static/samples/vsco2-piano-reverb-mp3/a1.mp3",
+    "C#2": "../../static/samples/vsco2-piano-reverb-mp3/csharp2.mp3",
+    "F2": "../../static/samples/vsco2-piano-reverb-mp3/f2.mp3",
+    "A2": "../../static/samples/vsco2-piano-reverb-mp3/a2.mp3",
+    "C#3": "../../static/samples/vsco2-piano-reverb-mp3/csharp3.mp3",
+    "F3": "../../static/samples/vsco2-piano-reverb-mp3/f3.mp3",
+    "A3": "../../static/samples/vsco2-piano-reverb-mp3/a3.mp3",
+    "C#4": "../../static/samples/vsco2-piano-reverb-mp3/csharp4.mp3",
+    "F4": "../../static/samples/vsco2-piano-reverb-mp3/f4.mp3",
+    "A4": "../../static/samples/vsco2-piano-reverb-mp3/a4.mp3",
+    "C#5": "../../static/samples/vsco2-piano-reverb-mp3/csharp5.mp3",
+    "F5": "../../static/samples/vsco2-piano-reverb-mp3/f5.mp3",
+    "A5": "../../static/samples/vsco2-piano-reverb-mp3/a5.mp3",
+    "C#6": "../../static/samples/vsco2-piano-reverb-mp3/csharp6.mp3",
+    "F6": "../../static/samples/vsco2-piano-reverb-mp3/f6.mp3",
+    "A6": "../../static/samples/vsco2-piano-reverb-mp3/a6.mp3",
+    "C#7": "../../static/samples/vsco2-piano-reverb-mp3/csharp7.mp3",
+    "F7": "../../static/samples/vsco2-piano-reverb-mp3/f7.mp3",
+    "A7": "../../static/samples/vsco2-piano-reverb-mp3/a7.mp3",
+    "C8": "../../static/samples/vsco2-piano-reverb-mp3/c8.mp3"
+  }
+}
