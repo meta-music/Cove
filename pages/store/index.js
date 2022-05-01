@@ -183,7 +183,7 @@ let actions = {
 		//state.synth.triggerAttackRelease(note, now);
 	},
 	runSynthGamut({state}) {
-		const now = Tone.now()
+		const now = Tone.now();
 		if (state.project.synth != []) {
 			for (var item of state.project.synth) {
 				

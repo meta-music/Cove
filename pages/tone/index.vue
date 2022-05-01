@@ -1,6 +1,25 @@
 <template>
 	<view class="u-bg-malandy-g3" :style="defaultHeight">
-		<view id = "particles" class=""
+		<vue-particles
+		        color="#fff"
+		        :particleOpacity="0.7"
+		        :particlesNumber="60"
+		        shapeType="star"
+		        :particleSize="4"
+		        linesColor="#fff"
+		        :linesWidth="1"
+		        :lineLinked="true"
+		        :lineOpacity="0.4"
+		        :linesDistance="150"
+		        :moveSpeed="2"
+		        :hoverEffect="true"
+		        hoverMode="grab"
+		        :clickEffect="true"
+		        clickMode="push"
+		        class="lizi"
+		      >
+		      </vue-particles>
+		<view class=""
 			:style="'height:'+getWindowsHeight*0.8 +'px;'"
 			@click="handleChickSet"
 			ref = "container">
@@ -29,6 +48,7 @@
 
 <script>
 	import {mapActions,mapGetters,mapState} from 'vuex';
+	//import VueParticles from 'vue-particles';
 	import ref from 'vue';
 	import normalToPct from '@/lib/core/normal-to-pct.js';
 	import particles from 'particles.js';
@@ -39,7 +59,7 @@
 	var previousClickTime;
 	var everClick = false;
 	
-	const container = new ref(null)
+	const container = new ref(null);
 	export default{
 		data(){
 			return{
@@ -57,7 +77,7 @@
 			}
 		},
 		mounted() {
-			particlesJS.load('particles','./static/particles_nasa.json');
+			//particlesJS.load('particles','./static/particles_nasa.json');
 			this.initPlayer();
 			this.runIntervals(()=>{
 				//Reset delay count

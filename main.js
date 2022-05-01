@@ -3,6 +3,8 @@
 import Vue from 'vue';
 import App from './App';
 import store from '@/pages/store/index.js';
+import VueParticles from 'vue-particles';
+Vue.use(VueParticles);
 
 Vue.config.productionTip = false
 App.mpType = 'app'
