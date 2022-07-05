@@ -4,31 +4,47 @@
 			"path": "pages/index/index"
 		},
 		{
-			"path": "pages/tone/index"
+			"path": "pages/emotion/tone/index"
 		},
 		{
-			"path": "pages/details/index"
+			"path": "pages/emotion/details/index"
 		},
 		{
-			"path": "pages/audio/index"
+			"path": "pages/emotion/audio/index"
 		},
 		{
-			"path": "pages/mood/index"
+			"path": "pages/emotion/mood/index"
 		},
 		{
-			"path": "pages/info/index"
+			"path": "pages/emotion/info/index"
+		},
+		{
+			"path": "auth"
 		},
 		{
 			"path": "pages/login/index"
+		},
+		{
+			"path": "pages/stars/index"
+		},
+		{
+			"path": "pages/user/index"
+		},
+		{
+			"path": "pages/ucharts/index"
+		},
+		{
+			"path": "pages/share/index"
 		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": "Coves",
-		"navigationBarBackgroundColor": "#769A80",
-		"backgroundColor": "#F8F8F8",
+		"navigationBarTitleText": "心乐星记",
+		"navigationBarBackgroundColor": "#000000",
+		"backgroundColor": "#000000",
+		"navigationStyle": "custom",
 		"app-plus": {
-			"background": "#efeff4"
+			"background": "#000000"
 		}
 	}
 }
