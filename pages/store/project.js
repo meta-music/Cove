@@ -1,5 +1,6 @@
 import authorize from "../utils/user.js"
 import * as Tone from "tone";
+import generateSamples from './rnn.js';
 //组合
 //const synth = new Tone.Synth().toDestination();
 import getInstrument from './instrument';
@@ -361,9 +362,31 @@ let actions={
 		if (node !== undefined) state.sampler.triggerAttack(node,now);
 		//state.synth.triggerAttackRelease(note, now);
 	},
-	runSynthGamut({state}){
+	async runSynthGamut({state}){
 		if (state.project.rdata.synth != []) {
-			const now = Tone.now();
+			const now = Tone.now();	
+			
+			const originalList = [];
+			for (var item of state.project.rdata.synth) {
+				const node = notesArray[item.node];
+				const time = item.up;
+				
+				originalList.push([time,node]);
+			}
+			let newSynthList = await generateSamples(originalList);
+			console.log("asdfdsasdfds: ", newSynthList);
+			// generateSamples(originalList).then(val=>{
+			// 	newSynthList = val;
+			// 	if(newSynthList !=[]){
+			// 		console.log("sth", newSynthList);
+			// 		for (var i = 0; i < newSynthList.length; i++){
+			// 			console.log('time', newSynthList[i][0]);
+			// 			console.log('node', newSynthList[i][1]);
+			// 		}
+			// 	}
+			// 	});
+			
+			
 			// console.log('synth----------',state.project.rdata.synth);
 			for (var item of state.project.rdata.synth) {
 				// console.log('runSynthGamut note----------',item);
@@ -371,7 +394,7 @@ let actions={
 				// const node = getNoteAtHeight(item.y);
 				const node = notesArray[item.node];
 				if (node !== undefined) state.sampler.triggerAttack(node, now + item.up);
-			}
+			}	
 		}
 	},
 	saveSynthGamut({state},Arr){
@@ -381,6 +404,28 @@ let actions={
 		state.project = state.list.find(item =>item.id==id);
 		state.index = id;
 	},
+	// generateNewNodes({state}){
+	// 	const originalList = [];
+	// 	for (var item of state.project.rdata.synth) {
+	// 		const node = notesArray[item.node];
+	// 		const time = item.up;
+			
+	// 		originalList.push([time,node]);
+	// 	}
+	// 	let newSynthList = generateSamples(originalList);
+		
+	// 	console.log("generated list:  ", newSynthList)
+	// 	// if  (newSynthList != []){
+	// 	// 	for (var newItem of newSynthList){
+				
+	// 	// 		state.project.rdata.synth.push({
+	// 	// 			node: newSynthList.node,
+	// 	// 			up: newSynthList.up
+	// 	// 		});
+	// 	// 	}
+	// 	// }	
+		
+	// },
 	saveInfo({state},Obj){
 		var {title,thoughts,location} = Obj;
 		if(title) state.project.rdata.title = title;
