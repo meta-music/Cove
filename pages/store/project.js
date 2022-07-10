@@ -4,9 +4,9 @@ import generateSamples from './rnn.js';
 //组合
 //const synth = new Tone.Synth().toDestination();
 import getInstrument from './instrument';
-import getNoteAtHeight from './getNode';
+//import getNoteAtHeight from './getNode';
 
-const pctArray =['D2', 'E2', 'F#2', 'G2', 'A2', 'B2', 'C#3', 'D3', 'E3', 'F#3', 'G3', 'A3', 'B3', 'C#4', 'D4', 'E4', 'F#4', 'G4', 'A4', 'B4', 'C#5', 'D5', 'E5', 'F#5', 'G5', 'A5', 'B5', 'C#6', 'D6', 'E6', 'F#6', 'G6', 'A6', 'B6', 'C#7'];
+//const pctArray =['D2', 'E2', 'F#2', 'G2', 'A2', 'B2', 'C#3', 'D3', 'E3', 'F#3', 'G3', 'A3', 'B3', 'C#4', 'D4', 'E4', 'F#4', 'G4', 'A4', 'B4', 'C#5', 'D5', 'E5', 'F#5', 'G5', 'A5', 'B5', 'C#6', 'D6', 'E6', 'F#6', 'G6', 'A6', 'B6', 'C#7'];
 const notesArray_lowToHigh = ['A0', 'A#0', 'B0', 
 'C1', 'C#1', 'D1', 'D#1', 'E1', 'F1', 'F#1', 'G1', 'G#1', 'A1', 'A#1', 'B1',
 'C2', 'C#2', 'D2', 'D#2', 'E2', 'F2', 'F#2', 'G2', 'G#2', 'A2', 'A#2', 'B2',
@@ -362,35 +362,14 @@ let actions={
 		if (node !== undefined) state.sampler.triggerAttack(node,now);
 		//state.synth.triggerAttackRelease(note, now);
 	},
-	async runSynthGamut({state}){
+	runSynthGamut({state}){
 		if (state.project.rdata.synth != []) {
 			const now = Tone.now();	
-			
-			const originalList = [];
-			for (var item of state.project.rdata.synth) {
-				const node = notesArray[item.node];
-				const time = item.up;
-				
-				originalList.push([time,node]);
-			}
-			let newSynthList = await generateSamples(originalList);
-			console.log("asdfdsasdfds: ", newSynthList);
-			// generateSamples(originalList).then(val=>{
-			// 	newSynthList = val;
-			// 	if(newSynthList !=[]){
-			// 		console.log("sth", newSynthList);
-			// 		for (var i = 0; i < newSynthList.length; i++){
-			// 			console.log('time', newSynthList[i][0]);
-			// 			console.log('node', newSynthList[i][1]);
-			// 		}
-			// 	}
-			// 	});
-			
-			
+
 			// console.log('synth----------',state.project.rdata.synth);
 			for (var item of state.project.rdata.synth) {
 				// console.log('runSynthGamut note----------',item);
-				console.log('runSynthGamut item.up----------',item.up,state.project.rdata.audioTime);
+				console.log('runSynthGamut item.up----------',item.up);
 				// const node = getNoteAtHeight(item.y);
 				const node = notesArray[item.node];
 				if (node !== undefined) state.sampler.triggerAttack(node, now + item.up);
@@ -426,7 +405,28 @@ let actions={
 	// 	// }	
 		
 	// },
-	saveInfo({state},Obj){
+	async saveInfo({state},Obj){
+		//AI generation before saving
+		if (state.project.rdata.synth != []){
+			const originalList = [];
+			for (var item of state.project.rdata.synth) {
+				const node = notesArray[item.node];
+				const time = item.up;
+				
+				originalList.push([time,node]);
+			}
+			let lastUp = originalList[originalList.length - 1][0];
+			let newSynthList = await generateSamples(originalList);
+			if(newSynthList !=[]){
+				for (var i = 0; i < newSynthList.length; i++){
+					state.project.rdata.synth.push({
+						node: notesArray.indexOf(newSynthList[i][1]),
+						up: lastUp + 1 + i
+					});
+				}
+			}
+		}
+		
 		var {title,thoughts,location} = Obj;
 		if(title) state.project.rdata.title = title;
 		if(thoughts) state.project.rdata.thoughts = thoughts;

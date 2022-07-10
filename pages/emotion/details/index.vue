@@ -127,7 +127,6 @@ export default {
 			data.id = this.project.id;
 			data.openid = this.openId;
 			data.rdata = JSON.stringify(this.project.rdata);
-			// console.log('this.project.id',this.project.id)
 			if(this.project.id < 1 || this.project.id == undefined){
 				reqProject.create({
 					data:data,

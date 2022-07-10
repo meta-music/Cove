@@ -219,8 +219,8 @@
 					up: interval,
 					order: clickCount
 				});
-				console.log(interval);
 				// this.audioTime = interval;
+				
 				//排序
 				this.synthList.sort((a,b)=>{
 					return a.up - b.up
