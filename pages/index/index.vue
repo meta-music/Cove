@@ -99,7 +99,7 @@
 		},
 		methods: {
 			...mapMutations(['CLEAR_INDEX', 'RESET_PROJECT']),
-			...mapActions(['setProjectList', 'setProjectFromId', 'getLoginStatus', 'initStatus']),
+			...mapActions(['setProjectList', 'setProjectFromId', 'getLoginStatus', 'initStatus','playerStop','getProjectStorage']),
 			handleClickDelete() {
 				uni.showModal({
 					title: '删除全部',

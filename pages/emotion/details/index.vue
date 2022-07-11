@@ -131,7 +131,7 @@ export default {
 				reqProject.create({
 					data:data,
 					success:(res)=>{
-						console.log('reqProject.create success:',res);
+						console.log('reqProject.create 11 success:',res);
 						uni.switchTab({
 							url:'/pages/index/index'
 						})
@@ -145,7 +145,7 @@ export default {
 				reqProject.updata({
 					data:data,
 					success:(res)=>{
-						console.log('reqProject.create success:',res);
+						console.log('reqProject.updata success:',res);
 						uni.switchTab({
 							url:'/pages/index/index'
 						})
