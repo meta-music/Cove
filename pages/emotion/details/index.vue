@@ -117,8 +117,8 @@ export default {
 	methods:{
 		...mapMutations(['setProjectImage']),
 		...mapActions(['saveInfo','saveProject']),
-		handleClickNext(){
-			this.saveInfo({
+		async handleClickNext(){
+			await this.saveInfo({
 				title:this.title,
 				thoughts:this.thoughts,
 				location:this.location
